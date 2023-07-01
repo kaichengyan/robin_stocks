@@ -156,7 +156,7 @@ def find_stock_orders(**arguments):
     :type arguments: str
     :returns: Returns a list of orders.
 
-    """ 
+    """
     url = orders_url()
     data = request_get(url, 'pagination')
 
@@ -198,7 +198,7 @@ def cancel_stock_order(orderID):
     :type orderID: str
     :returns: Returns the order information for the order that was cancelled.
 
-    """ 
+    """
     url = cancel_url(orderID)
     data = request_post(url)
 
@@ -215,7 +215,7 @@ def cancel_option_order(orderID):
     :type orderID: str
     :returns: Returns the order information for the order that was cancelled.
 
-    """ 
+    """
     url = option_cancel_url(orderID)
     data = request_post(url)
 
@@ -232,7 +232,7 @@ def cancel_crypto_order(orderID):
     :type orderID: str
     :returns: Returns the order information for the order that was cancelled.
 
-    """ 
+    """
     url = crypto_cancel_url(orderID)
     data = request_post(url)
 
@@ -247,7 +247,7 @@ def cancel_all_stock_orders():
 
     :returns: The list of orders that were cancelled.
 
-    """ 
+    """
     url = orders_url()
     data = request_get(url, 'pagination')
 
@@ -266,7 +266,7 @@ def cancel_all_option_orders():
 
     :returns: Returns the order information for the orders that were cancelled.
 
-    """ 
+    """
     url = option_orders_url()
     data = request_get(url, 'pagination')
 
@@ -285,7 +285,7 @@ def cancel_all_crypto_orders():
 
     :returns: Returns the order information for the orders that were cancelled.
 
-    """ 
+    """
     url = crypto_orders_url()
     data = request_get(url, 'pagination')
 
@@ -319,8 +319,8 @@ def order_buy_market(symbol, quantity, account_number=None, timeInForce='gtc', e
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "buy", account_number, None, None, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "buy", None, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -345,8 +345,8 @@ def order_buy_fractional_by_quantity(symbol, quantity, account_number=None, time
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "buy", account_number, None, None, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "buy", None, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -371,7 +371,7 @@ def order_buy_fractional_by_price(symbol, amountInDollars, account_number=None, 
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     if amountInDollars < 1:
         print("ERROR: Fractional share price should meet minimum 1.00.", file=get_output())
         return None
@@ -379,8 +379,8 @@ def order_buy_fractional_by_price(symbol, amountInDollars, account_number=None, 
     # turn the money amount into decimal number of shares
     price = next(iter(get_latest_price(symbol, 'ask_price', extendedHours)), 0.00)
     fractional_shares = 0 if (price == 0.00) else round_price(amountInDollars/float(price))
-    
-    return order(symbol, fractional_shares, "buy", account_number, None, None, timeInForce, extendedHours, jsonify)
+
+    return order(symbol, fractional_shares, "buy", None, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -406,8 +406,8 @@ def order_buy_limit(symbol, quantity, limitPrice, account_number=None, timeInFor
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "buy", account_number, limitPrice, None, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "buy", limitPrice, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -433,8 +433,8 @@ def order_buy_stop_loss(symbol, quantity, stopPrice, account_number=None, timeIn
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "buy", account_number, None, stopPrice, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "buy", None, stopPrice, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -462,8 +462,8 @@ def order_buy_stop_limit(symbol, quantity, limitPrice, stopPrice, account_number
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "buy", account_number, limitPrice, stopPrice, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "buy", limitPrice, stopPrice, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -517,8 +517,8 @@ def order_sell_market(symbol, quantity, account_number=None, timeInForce='gtc', 
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "sell", account_number, None, None, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "sell", None, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -543,8 +543,8 @@ def order_sell_fractional_by_quantity(symbol, quantity, account_number=None, tim
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "sell", account_number, None, None, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "sell", None, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -569,7 +569,7 @@ def order_sell_fractional_by_price(symbol, amountInDollars, account_number=None,
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     if amountInDollars < 1:
         print("ERROR: Fractional share price should meet minimum 1.00.", file=get_output())
         return None
@@ -577,7 +577,7 @@ def order_sell_fractional_by_price(symbol, amountInDollars, account_number=None,
     price = next(iter(get_latest_price(symbol, 'bid_price', extendedHours)), 0.00)
     fractional_shares = 0 if (price == 0.00) else round_price(amountInDollars/float(price))
 
-    return order(symbol, fractional_shares, "sell", account_number, None, None, timeInForce, extendedHours, jsonify)
+    return order(symbol, fractional_shares, "sell", None, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -603,8 +603,8 @@ def order_sell_limit(symbol, quantity, limitPrice, account_number=None, timeInFo
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "sell", account_number, limitPrice, None, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "sell", limitPrice, None, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -630,8 +630,8 @@ def order_sell_stop_loss(symbol, quantity, stopPrice, account_number=None, timeI
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "sell", account_number, None, stopPrice, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "sell", None, stopPrice, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -659,8 +659,8 @@ def order_sell_stop_limit(symbol, quantity, limitPrice, stopPrice, account_numbe
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
-    return order(symbol, quantity, "sell", account_number, limitPrice, stopPrice, timeInForce, extendedHours, jsonify)
+    """
+    return order(symbol, quantity, "sell", limitPrice, stopPrice, account_number, timeInForce, extendedHours, jsonify)
 
 
 @login_required
@@ -801,7 +801,7 @@ def order(symbol, quantity, side, limitPrice=None, stopPrice=None, account_numbe
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     try:
         symbol = symbol.upper().strip()
     except AttributeError as message:
@@ -955,7 +955,7 @@ def order_option_spread(direction, price, symbol, quantity, spread, account_numb
     :returns: Dictionary that contains information regarding the trading of options, \
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
-    """ 
+    """
     try:
         symbol = symbol.upper().strip()
     except AttributeError as message:
@@ -1023,7 +1023,7 @@ def order_buy_option_limit(positionEffect, creditOrDebit, price, symbol, quantit
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     try:
         symbol = symbol.upper().strip()
     except AttributeError as message:
@@ -1088,7 +1088,7 @@ def order_buy_option_stop_limit(positionEffect, creditOrDebit, limitPrice, stopP
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     try:
         symbol = symbol.upper().strip()
     except AttributeError as message:
@@ -1153,7 +1153,7 @@ def order_sell_option_stop_limit(positionEffect, creditOrDebit, limitPrice, stop
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     try:
         symbol = symbol.upper().strip()
     except AttributeError as message:
@@ -1266,7 +1266,7 @@ def order_buy_crypto_by_price(symbol, amountInDollars, timeInForce='gtc', jsonif
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     return order_crypto(symbol, "buy", amountInDollars, "price", None, timeInForce, jsonify)
 
 
@@ -1287,7 +1287,7 @@ def order_buy_crypto_by_quantity(symbol, quantity, timeInForce='gtc', jsonify=Tr
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     return order_crypto(symbol, "buy", quantity, "quantity", None, timeInForce, jsonify)
 
 
@@ -1310,7 +1310,7 @@ def order_buy_crypto_limit(symbol, quantity, limitPrice, timeInForce='gtc', json
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     return order_crypto(symbol, "buy", quantity, "quantity", limitPrice, timeInForce, jsonify)
 
 
@@ -1354,7 +1354,7 @@ def order_sell_crypto_by_price(symbol, amountInDollars, timeInForce='gtc', jsoni
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     return order_crypto(symbol, "sell", amountInDollars, "price", None, timeInForce, jsonify)
 
 
@@ -1375,7 +1375,7 @@ def order_sell_crypto_by_quantity(symbol, quantity, timeInForce='gtc', jsonify=T
     such as the order id, the state of order (queued, confired, filled, failed, canceled, etc.), \
     the price, and the quantity.
 
-    """ 
+    """
     return order_crypto(symbol, "sell", quantity, "quantity", None, timeInForce, jsonify)
 
 
