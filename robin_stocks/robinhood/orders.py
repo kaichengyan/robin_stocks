@@ -845,13 +845,11 @@ def order(symbol, quantity, side, limitPrice=None, stopPrice=None, account_numbe
         'time_in_force': timeInForce,
         'trigger': trigger,
         'side': side,
-        'extended_hours': extendedHours
+        'extended_hours': extendedHours,
+        'order_form_version': 4
     }
-    # BEGIN PATCH FOR NEW ROBINHOOD BUY FORM (GuitarGuyChrisB 5/26/2023)
     if side == "buy":
-        payload['order_form_version'] = "2"
         payload['preset_percent_limit'] = "0.05"
-    # END PATCH FOR NEW ROBINHOOD BUY FORM (GuitarGuyChrisB 5/26/2023)
 
     url = orders_url()
 
